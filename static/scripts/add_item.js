@@ -5,7 +5,7 @@ function fill_book_data_input() {
 }
 
 function update_img() {
-  const file_input = document.querySelector("#add-book-data-thumbnail-file");
+  const file_input = document.querySelector("#book-data-thumbnail-file");
   if (file_input.files.length == 0) { return }
 
   let reader = new FileReader();
