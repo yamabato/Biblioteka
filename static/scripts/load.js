@@ -81,7 +81,8 @@ function create_item_html(item_n, info) {
                 </tr>
                 <tr class="load-book-data-tr">
                     <th class="load-book-data-th"><label class="load-book-data-lbl">Thumbnail:</label></th>
-                    <td class="load-book-data-td"><input type="file" class="file-input-mini" id="load-book-data-thumbnail-${item_n}"/></td>
+                    <td class="load-book-data-td"><input type="file" class="file-input-mini" \
+                      id="load-book-data-thumbnail-${item_n}" onchange="update_item_img(${item_n});"/></td>
                 </tr>
             </table>
         </div>
@@ -98,6 +99,18 @@ function clear_item_fields() {
 function show_no_items_msg() {
   document.querySelector("#load-items-area").innerHTML = "<h1 id='load-no-items-msg'>No Items</h1>";
   item_number_list = [];
+}
+
+function update_item_img(item_n) {
+  const file_input = document.querySelector(`#load-book-data-thumbnail-${item_n}`);
+  if (file_input.files.length == 0) { return }
+
+  let reader = new FileReader();
+  reader.readAsDataURL(file_input.files[0]);
+
+  reader.onload = function() {
+    document.querySelector(`#load-item-img-${item_n}`).src = reader.result;
+  }
 }
 
 function show_items(succeeded, failed) {

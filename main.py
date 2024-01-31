@@ -29,6 +29,7 @@ def page_add_item():
     elif request.method == "POST":
         received_data = request.get_data().decode()
         book_data = json.loads(received_data)
+        print(book_data)
 
         ok = save_new_item(book_data)
 
