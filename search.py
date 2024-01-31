@@ -1,3 +1,4 @@
+import os
 import string
 
 from item_database import load_items
@@ -38,6 +39,8 @@ def generate_search_result_html(items):
         item_id = item[0]
         title = item[2]
         thumbnail_path = item[8]
+
+        if not os.path.isfile(thumbnail_path): thumbnail_path = "./static/img/1.jpg"
 
         html += ITEM_HTML_TEMPLATE.safe_substitute(
             {
