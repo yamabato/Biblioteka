@@ -1,0 +1,22 @@
+#index-buttons-area {
+  margin: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.index-btn {
+  display: block;
+  margin: 20px;
+  width: 10ch;
+}
+
+#index-add-btn {
+  color: #223a70;
+  border-color: #223a70;
+}
+
+#index-search-btn {
+  color: #19448e;
+  border-color: #19448e;
+}

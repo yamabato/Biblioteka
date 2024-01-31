@@ -1,0 +1,26 @@
+{% extends "layout.html" %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block stylesheets %}
+<link rel="stylesheet" href="static/stylesheets/style.css">
+<link rel="stylesheet" href="static/stylesheets/buttons.css">
+<link rel="stylesheet" href="static/stylesheets/dashboard.css">
+{% endblock %}
+
+{% block scripts %}
+<script src="./static/chartjs/node_modules/chart.js/dist/chart.umd.js"></script>
+<script src="static/scripts/dashboard.js"></script>
+{% endblock %}
+
+{% block main %}
+<div class="main-area" id="dashboard-main-area">
+    <h1 class="page-title" id="dashboard-title">Dashboard</h1>
+
+    <div id="dashboard-lang-chart-area">
+        <canvas id="dashboard-lang-chart-canvas"></canvas>
+        <h1 class="dashboard-chart-title">Item Languages</h1>
+    </div>
+</div>
+
+{% endblock %}
