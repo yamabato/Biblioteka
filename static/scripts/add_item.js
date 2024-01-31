@@ -23,11 +23,14 @@ function fill_book_data() {
     if (thumbnail_file_path.includes(".png")) { img_type = "image/png"; }
     else if (thumbnail_file_path.includes(".gif")) { img_type = "image/gif"; }
 
-    const img_file = new File([""], thumbnail_file_path, {type: img_type});
-    const dt = new DataTransfer();
-    dt.items.add(img_file);
-    document.querySelector("#add-book-thumbnail-file").files = dt.files;
-    document.querySelector("#add-book-thumbnail-img").src = book_data.thumbnail_file_path;
+    const file_path = book_data.thumbnail_file_path;
+    if (file_path){
+      const img_file = new File([""], thumbnail_file_path, {type: img_type});
+      const dt = new DataTransfer();
+      dt.items.add(img_file);
+      document.querySelector("#add-book-thumbnail-file").files = dt.files;
+      document.querySelector("#add-book-thumbnail-img").src = book_data.thumbnail_file_path;
+    }
   });
 }
 
