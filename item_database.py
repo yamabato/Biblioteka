@@ -26,6 +26,9 @@ def save_database_file(items):
         json.dump(items, f)
 
 def save_new_item(book_data):
+    ok, books = load_items()
+    if not ok: return False
+
     # id, isbn, title, author, publisher, date, pages, language, thumbnail_file_path
     isbn = trim_isbn(book_data["isbn"])
     title = book_data["title"]
@@ -43,7 +46,6 @@ def save_new_item(book_data):
 
     item_data = [item_id, isbn, title, author, publisher, date, pages, language, thumbnail_file_path]
 
-    books = load_items()
 
     books[item_id] = item_data
 
