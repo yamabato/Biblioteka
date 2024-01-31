@@ -12,7 +12,7 @@ function update_img() {
   reader.readAsDataURL(file_input.files[0]);
 
   reader.onload = function() {
-    document.querySelector("#add-book-data-thumbnail-img").src = reader.result;
+    document.querySelector("#book-data-thumbnail-img").src = reader.result;
   }
 }
 
