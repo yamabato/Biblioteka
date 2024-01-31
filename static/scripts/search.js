@@ -35,5 +35,8 @@ function search_item() {
     document.querySelector("#search-items-count").innerHTML = `${count} Items`;
     document.querySelector("#search-items").innerHTML = html;
   });
+}
 
+function open_book_page(item_id) {
+  window.open(`/item?id=${item_id}`, "newtab");
 }

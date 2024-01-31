@@ -1,8 +1,22 @@
-import re
 import time
 import random
 import hashlib
 import requests
+
+from item_database import load_items, save_database_file
+from util import trim_isbn
+
+BOOK_DATA_TEMPLATE = {
+    "isbn": "",
+    "title": "",
+    "author": "",
+    "publisher": "",
+    "date": "",
+    "pages": "",
+    "language": "",
+    "thumbnail_url": "",
+    "thumbnail_file_path": "",
+}
 
 # OpenBD API
 def fetch_openbd_data(isbn):
@@ -17,17 +31,10 @@ def fetch_openbd_data(isbn):
     return result.ok, result.json()
 
 # OpenBDより書誌情報を取得
-def generate_book_data(isbn):
-    book_data = {
-        "isbn": isbn,
-        "title": "",
-        "author": "",
-        "publisher": "",
-        "date": "",
-        "pages": "",
-        "language": "jpn",
-        "thumbnail_url": "",
-    }
+def generate_book_data_isbn(isbn):
+    book_data = BOOK_DATA_TEMPLATE
+    book_data["isbn"] = isbn
+    book_data["language"] = "jpn"
 
     ok, json_data = fetch_openbd_data(isbn)
 
@@ -102,9 +109,38 @@ def generate_book_data(isbn):
 
     return book_data
 
-# 数字以外を削除
-def trim_isbn(isbn):
-    return  re.sub(r"\D", "", isbn)
+def generate_book_data_id(item_id):
+    book_data = BOOK_DATA_TEMPLATE
+
+    ok, items = load_items()
+    if not ok: return book_data
+
+    if item_id not in items: return book_data
+
+    item = items[item_id]
+    book_data["isbn"] = item[1]
+    book_data["title"] = item[2]
+    book_data["author"] = item[3]
+    book_data["publisher"] = item[4]
+    book_data["date"] = item[5]
+    book_data["pages"] = item[6]
+    book_data["language"] = item[7]
+    book_data["thumbnail_file_path"] = item[8]
+
+    return book_data
+
+def generate_book_data(request_body):
+    kind = request_body["kind"]
+
+    if kind == "isbn":
+        isbn = request_body["isbn"]
+        book_data = generate_book_data_isbn(trim_isbn(isbn))
+        ok, img_path = download_thumbnail(book_data["thumbnail_url"])
+        book_data["thumbnail_file_path"] = img_path
+        return book_data
+    else:
+        item_id = request_body["item_id"]
+        return generate_book_data_id(item_id)
 
 # 書影をダウンロード
 def download_thumbnail(url):
@@ -163,3 +199,31 @@ def import_isbn_list(isbn_list):
         else: failed.append(book_data)
 
     return True, succeeded, failed
+
+def save_item_data_change(item_data):
+    ok, items = load_items()
+    if not ok: return False
+
+    item_id = item_data["item_id"]
+
+    thumbnail_file_path = item_data["thumbnail_file_path"]
+    if thumbnail_file_path[:8] != "./static":
+        thumbnail_file_path = os.path.join("./static/thumbnails/", thumbnail_file_path)
+
+    item = [
+        item_data["item_id"],
+        item_data["isbn"],
+        item_data["title"],
+        item_data["author"],
+        item_data["publisher"],
+        item_data["date"],
+        item_data["pages"],
+        item_data["language"],
+        thumbnail_file_path
+    ]
+
+    items[item_id] = item
+
+    save_database_file(items)
+
+    return True

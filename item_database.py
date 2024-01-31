@@ -2,7 +2,7 @@ import os
 import json
 import hashlib
 
-from book_data import trim_isbn
+from util import trim_isbn
 
 DATABASE_FILE = "./database/books.json"
 
@@ -20,6 +20,10 @@ def load_items():
 def create_database_file():
     with open(DATABASE_FILE, mode="w") as f:
         json.dump({}, f)
+
+def save_database_file(items):
+    with open(DATABASE_FILE, mode="w") as f:
+        json.dump(items, f)
 
 def save_new_item(book_data):
     # id, isbn, title, author, publisher, date, pages, language, thumbnail_file_path
@@ -39,12 +43,10 @@ def save_new_item(book_data):
 
     item_data = [item_id, isbn, title, author, publisher, date, pages, language, thumbnail_file_path]
 
-    with open(DATABASE_FILE, mode="r") as f:
-        books = json.load(f)
+    books = load_items()
 
     books[item_id] = item_data
 
-    with open(DATABASE_FILE, mode="w") as f:
-        json.dump(books, f)
+    save_database_file(books)
 
     return True

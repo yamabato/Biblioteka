@@ -1,0 +1,65 @@
+{% extends "layout.html" %}
+
+{% block title %}Item{% endblock %}
+
+{% block stylesheets %}
+<link rel="stylesheet" href="static/stylesheets/style.css">
+<link rel="stylesheet" href="static/stylesheets/buttons.css">
+<link rel="stylesheet" href="static/stylesheets/item.css">
+<link rel="stylesheet" href="static/stylesheets/input.css">
+{% endblock %}
+
+{% block scripts %}
+<script src="static/scripts/item.js"></script>
+<script src="static/scripts/script.js"></script>
+{% endblock %}
+
+{% block main %}
+<div class="main-area" id="item-main-area">
+    <h1 class="page-title" id="item-title">Item</h1>
+
+    <div id="item-data-area">
+        <h1 id="item-title">Title</h1>
+        <img id="book-data-thumbnail-img" src="./static/img/1.jpg">
+
+        <table id="item-table">
+            <tr class="item-tr">
+                <th class="item-th"><label for="item-input-isbn" class="item-label">ISBN:</label></th>
+                <td class="item-td"><input type="text" class="item-input" id="book-data-isbn" name="item-input-isbn"></td>
+            </tr>
+            <tr class="item-tr">
+                <th class="item-th"><label for="item-input-title" class="item-label">Title:</label></th>
+                <td class="item-td"><input type="text" class="item-input" id="book-data-title" name="item-input-title"></td>
+            </tr>
+            <tr class="item-tr">
+                <th class="item-th"><label for="item-input-author" class="item-label">Author:</label></th>
+                <td class="item-td"><input type="text" class="item-input" id="book-data-author" name="item-input-author"></td>
+            </tr>
+            <tr class="item-tr">
+                <th class="item-th"><label for="item-input-publisher" class="item-label">Publisher:</label></th>
+                <td class="item-td"><input type="text" class="item-input" id="book-data-publisher" name="item-input-publisher"></td>
+            </tr>
+            <tr class="item-tr">
+                <th class="item-th"><label for="item-input-date" class="item-label">Date:</label></th>
+                <td class="item-td"><input type="text" class="item-input" id="book-data-date" name="item-input-date"></td>
+            </tr>
+            <tr class="item-tr">
+                <th class="item-th"><label for="item-input-pages" class="item-label">Pages:</label></th>
+                <td class="item-td"><input type="text" class="item-input" id="book-data-pages" name="item-input-pages"></td>
+            </tr>
+            <tr class="item-tr">
+                <th class="item-th"><label for="item-input-language" class="item-label">Language:</label></th>
+                <td class="item-td"><input type="text" class="item-input" id="book-data-language" name="item-input-language"></td>
+            </tr>
+            <tr class="item-tr">
+                <th class="item-th"><label for="item-input-thumbnail-path" class="item-label">Thumbnail:</label></th>
+                <td class="item-td"><input type="file" class="file-input-mini" id="book-data-thumbnail-file" name="item-input-thumbnail"></td>
+            </tr>
+        </table>
+
+        <div id="item-msg-placeholder"></div>
+        <button class="simple-btn-1" id="item-save-btn" onclick="save_changes();">Save</button>
+    </div>
+</div>
+
+{% endblock %}

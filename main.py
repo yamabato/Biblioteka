@@ -3,7 +3,7 @@ import json
 from flask import Flask
 from flask import render_template, request
 
-from book_data import trim_isbn, generate_book_data, download_thumbnail, import_isbn_list
+from book_data import generate_book_data, download_thumbnail, import_isbn_list, save_item_data_change
 from search import search_item, generate_search_result_html
 from item_database import save_new_item
 from dashboard import calculate_statistics
@@ -63,20 +63,33 @@ def page_search():
         search_result_html = generate_search_result_html(items)
         return {"count": len(items), "html": search_result_html}
 
+@app.route("/item", methods=["POST", "GET"])
+def page_item():
+    if request.method == "GET":
+        return render_template("item.html")
+    elif request.method == "POST":
+        pass
 
 
 @app.route("/book_data", methods=["POST"])
 def page_book_data():
     if request.method == "POST":
-        received_data = str(request.get_data())
-        isbn = trim_isbn(received_data)
-        book_data = generate_book_data(isbn)
+        received_data = request.get_data().decode()
+        request_content = json.loads(received_data)
 
-        ok, img_path = download_thumbnail(book_data["thumbnail_url"])
-
-        book_data["thumbnail_file_path"] = img_path
+        book_data = generate_book_data(request_content)
 
         return book_data
+
+@app.route("/edit", methods=["POST"])
+def page_edit():
+    if request.method == "POST":
+        received_data = request.get_data().decode()
+        item_data = json.loads(received_data)
+
+        ok = save_item_data_change(item_data)
+
+        return {"ok": ok}
 
 if __name__ == "__main__":
     app.run()

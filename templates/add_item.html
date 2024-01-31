@@ -10,6 +10,7 @@
 {% endblock %}
 
 {% block scripts %}
+<script src="static/scripts/script.js"></script>
 <script src="static/scripts/add_item.js"></script>
 {% endblock %}
 
@@ -19,8 +20,8 @@
   <h1 class="page-title" id="add-title">Add Item</h1>
 
   <div id="add-isbn-area">
-    <input type="text" class="input-1" id="add-isbn-input" placeholder="ISBN">
-    <button class="search-btn-1" id="add-isbn-btn" onclick="fill_book_data();">Search</button>
+    <input type="text" class="input-1" id="book-data-isbn" placeholder="ISBN">
+    <button class="search-btn-1" id="add-isbn-btn" onclick="fill_book_data_input();">Search</button>
   </div>
 
   <div id="add-book-data-area">
@@ -28,40 +29,40 @@
 
       <tr class="add-book-data-tr">
         <th class="add-book-data-th"><label class="add-book-data-lbl">Title:</label></th>
-        <td class="add-book-data-td"><input type="text" class="add-book-data-input" id="add-book-data-title"/></td>
+        <td class="add-book-data-td"><input type="text" class="add-book-data-input" id="book-data-title"/></td>
       </tr>
 
       <tr class="add-book-data-tr">
         <th class="add-book-data-th"><label class="add-book-data-lbl">Author:</label></th>
-        <td class="add-book-data-td"><input type="text" class="add-book-data-input" id="add-book-data-author"/></td>
+        <td class="add-book-data-td"><input type="text" class="add-book-data-input" id="book-data-author"/></td>
       </tr>
 
       <tr class="add-book-data-tr">
         <th class="add-book-data-th"><label class="add-book-data-lbl">Publisher:</label></th>
-        <td class="add-book-data-td"><input type="text" class="add-book-data-input" id="add-book-data-publisher"/></td>
+        <td class="add-book-data-td"><input type="text" class="add-book-data-input" id="book-data-publisher"/></td>
       </tr>
 
       <tr class="add-book-data-tr">
         <th class="add-book-data-th"><label class="add-book-data-lbl">Date:</label></th>
-        <td class="add-book-data-td"><input type="text" class="add-book-data-input" id="add-book-data-date"/></td>
+        <td class="add-book-data-td"><input type="text" class="add-book-data-input" id="book-data-date"/></td>
       </tr>
 
       <tr class="add-book-data-tr">
         <th class="add-book-data-th"><label class="add-book-data-lbl">Pages:</label></th>
-        <td class="add-book-data-td"><input type="text" class="add-book-data-input" id="add-book-data-pages"/></td>
+        <td class="add-book-data-td"><input type="text" class="add-book-data-input" id="book-data-pages"/></td>
       </tr>
 
       <tr class="add-book-data-tr">
         <th class="add-book-data-th"><label class="add-book-data-lbl">Language:</label></th>
-        <td class="add-book-data-td"><input type="text" class="add-book-data-input" id="add-book-data-language"/></td>
+        <td class="add-book-data-td"><input type="text" class="add-book-data-input" id="book-data-language"/></td>
       </tr>
 
     </table>
   </div>
 
   <div id="add-book-thumbnail-area">
-    <input type="file" class="file-input" id="add-book-thumbnail-file" accept="image/*" onchange="update_img();">
-    <img id="add-book-thumbnail-img" src="./static/img/3.png">
+    <input type="file" class="file-input" id="book-data-thumbnail-file" accept="image/*" onchange="update_img();">
+    <img id="book-data-thumbnail-img" src="./static/img/3.png">
   </div>
 
   <div id="add-msg-placeholder"></div>

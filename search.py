@@ -4,7 +4,7 @@ import string
 from item_database import load_items
 
 ITEM_HTML = """
-<div class="search-result" onclick="open_book_page('${${item_id}}');">
+<div class="search-result" onclick="open_book_page('${item_id}');">
   <img class="search-result-img" src="${thumbnail_path}">
   <p class="search-result-title">${title}</p>
 </div>

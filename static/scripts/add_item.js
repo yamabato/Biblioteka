@@ -1,76 +1,46 @@
-function fill_book_data() {
-  const isbn_input = document.querySelector("#add-isbn-input");
+function fill_book_data_input() {
+  const isbn_input = document.querySelector("#book-data-isbn");
   const isbn = isbn_input.value;
-
-  fetch("/book_data", {
-    method: "POST",
-    body: isbn
-  }).then((result) => {
-    if (result.ok) {
-      return result.json();
-    };
-  }).then((book_data) => {
-    document.querySelector("#add-book-data-title").value = book_data.title;
-    document.querySelector("#add-book-data-author").value = book_data.author;
-    document.querySelector("#add-book-data-publisher").value = book_data.publisher;
-    document.querySelector("#add-book-data-date").value = book_data.date;
-    document.querySelector("#add-book-data-pages").value = book_data.pages;
-    document.querySelector("#add-book-data-language").value = book_data.language;
-
-    let img_type = "image/jpeg";
-
-    const thumbnail_file_path = book_data.thumbnail_file_path;
-    if (thumbnail_file_path.includes(".png")) { img_type = "image/png"; }
-    else if (thumbnail_file_path.includes(".gif")) { img_type = "image/gif"; }
-
-    const file_path = book_data.thumbnail_file_path;
-    if (file_path){
-      const img_file = new File([""], thumbnail_file_path, {type: img_type});
-      const dt = new DataTransfer();
-      dt.items.add(img_file);
-      document.querySelector("#add-book-thumbnail-file").files = dt.files;
-      document.querySelector("#add-book-thumbnail-img").src = book_data.thumbnail_file_path;
-    }
-  });
+  fill_book_data({"isbn": isbn, "kind": "isbn"});
 }
 
 function update_img() {
-  const file_input = document.querySelector("#add-book-thumbnail-file");
+  const file_input = document.querySelector("#add-book-data-thumbnail-file");
   if (file_input.files.length == 0) { return }
 
   let reader = new FileReader();
   reader.readAsDataURL(file_input.files[0]);
 
   reader.onload = function() {
-    document.querySelector("#add-book-thumbnail-img").src = reader.result;
+    document.querySelector("#add-book-data-thumbnail-img").src = reader.result;
   }
 }
 
 function clear_forms() {
-    document.querySelector("#add-isbn-input").value = "";
-    document.querySelector("#add-book-data-title").value = "";
-    document.querySelector("#add-book-data-author").value = "";
-    document.querySelector("#add-book-data-publisher").value = "";
-    document.querySelector("#add-book-data-date").value = "";
-    document.querySelector("#add-book-data-pages").value = "";
-    document.querySelector("#add-book-data-language").value = "";
-    document.querySelector("#add-book-thumbnail-file").value = "";
+    document.querySelector("#book-data-isbn").value = "";
+    document.querySelector("#book-data-title").value = "";
+    document.querySelector("#book-data-author").value = "";
+    document.querySelector("#book-data-publisher").value = "";
+    document.querySelector("#book-data-date").value = "";
+    document.querySelector("#book-data-pages").value = "";
+    document.querySelector("#book-data-language").value = "";
+    document.querySelector("#book-data-thumbnail-file").value = "";
 
-    document.querySelector("#add-book-thumbnail-img").src = "./static/img/3.png";
+    document.querySelector("#book-data-thumbnail-img").src = "./static/img/3.png";
 }
 
 function send_item_data() {
-  const isbn = document.querySelector("#add-isbn-input").value;
-  const title = document.querySelector("#add-book-data-title").value;
-  const author = document.querySelector("#add-book-data-author").value;
-  const publisher = document.querySelector("#add-book-data-publisher").value;
-  const date = document.querySelector("#add-book-data-date").value;
-  const pages = document.querySelector("#add-book-data-pages").value;
-  const language = document.querySelector("#add-book-data-language").value;
+  const isbn = document.querySelector("#book-data-isbn").value;
+  const title = document.querySelector("#book-data-title").value;
+  const author = document.querySelector("#book-data-author").value;
+  const publisher = document.querySelector("#book-data-publisher").value;
+  const date = document.querySelector("#book-data-date").value;
+  const pages = document.querySelector("#book-data-pages").value;
+  const language = document.querySelector("#book-data-language").value;
 
   if (title == "") { return }
 
-  const thumbnail_files = document.querySelector("#add-book-thumbnail-file").files;
+  const thumbnail_files = document.querySelector("#book-data-thumbnail-file").files;
   let thumbnail_file_path;
   if (thumbnail_files.length != 0 ){
     thumbnail_file_path = thumbnail_files[0].name;
