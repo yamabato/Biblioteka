@@ -168,7 +168,7 @@ function send_item(item_n) {
   if (title == "") { return }
 
   const thumbnail_files = document.querySelector(`#load-book-data-thumbnail-${item_n}`).files;
-  let thumbnail_path;
+  let thumbnail_path = "";
   if (thumbnail_files.length != 0 ){
     thumbnail_path = thumbnail_files[0].name;
   }
