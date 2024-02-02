@@ -2,7 +2,6 @@ function fill_book_data_input() {
   const params = new URLSearchParams(document.location.search);
   const item_id = params.get("id");
   fill_book_data({"item_id": item_id, "kind": "item_id"});
-  update_title_lbl();
 }
 
 function update_title_lbl() {
@@ -66,7 +65,6 @@ function save_changes() {
 }
 
 window.onload = function() {
-  document.querySelector("#book-data-title").addEventListener("input", update_title_lbl);
   fill_book_data_input();
 }
 
